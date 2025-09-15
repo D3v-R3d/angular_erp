@@ -1,0 +1,18 @@
+.example-element-diagram {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/*# sourceMappingURL=list-client.component.css.map */

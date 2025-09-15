@@ -1,0 +1,436 @@
+<div class="big-container">
+
+  <h1 class="title"  data-step="1" data-title="Bienvenue !<br> 👋 " data-intro=" Vous étes sur la page Administration, cet espace vous permet d'accéder à différentes fonctionnalités associées à la gestion de votre entreprise !">Administration </h1>
+  <mat-tab-group mat-stretch-tabs>
+
+
+    <mat-tab>
+      <ng-template mat-tab-label  >
+        <mat-icon class="example-tab-icon">settings</mat-icon>
+        Paramètres
+      </ng-template>
+      <h3 class="bold" >Options d'administration</h3>
+      <div class="global-container">
+        <mat-icon  (click)="startIntro()" class=" iconInfo">info</mat-icon>
+
+        <p *ngIf="showInfo" class="pInfo">
+          Bienvenue sur la page de gestion des entreprises. Cet espace vous permet d'accéder à différentes fonctionnalités associées à la gestion de votre entreprise :
+
+          1. <strong>Ajouter une entreprise</strong> : Cliquez sur le bouton  <mat-icon class="icn">add</mat-icon> pour enregistrer une nouvelle entreprise dans le système.<br>
+          2. <strong>Liste des devis</strong> : Cliquez sur l'icône<mat-icon class="icn">list</mat-icon> pour accéder à la liste complète de tous les devis enregistrés.<br>
+          3. <strong>Ajouter un utilisateur</strong> : Cliquez sur l'icône<mat-icon class="icn">create</mat-icon> pour ajouter un nouvel utilisateur à une entreprise.<br>
+          4. <strong>Importer des données</strong> : Utilisez l'option <mat-icon class="icn"> import_export</mat-icon> pour importer des données pertinentes pour votre entreprise à partir d'un fichier externe.<br>
+          5. <strong>Créer une unité</strong> : Cliquez sur <mat-icon class="icn">playlist_add</mat-icon> pour créer et enregistrer une nouvelle unité pour votre entreprise.<br>
+
+          Naviguez à travers ces options pour gérer efficacement les informations de votre entreprise.
+        </p>
+
+        <div class="card ">
+
+          <div class="flex-row"  >
+            <button class="btn blue" (click)="updateCompany(null)" data-step="2" data-intro="Cliquez sur le bouton  pour enregistrer une nouvelle entreprise dans le système.">
+              <mat-icon class="icn">add</mat-icon>
+              <p class="paramP">Ajouter une entreprise</p>
+            </button>
+
+
+
+          <div class="" data-step="3" data-intro="Cliquez ici pour accéder à la liste complète de tous les devis enregistrés.">
+            <button class="btn green" [routerLink]="'/devis/'">
+              <mat-icon class="icn">list</mat-icon>
+              <p class="paramP">Liste des devis</p>
+            </button>
+          </div>
+          </div>
+
+          <div class="flex-row">
+            <button class="btn yellow" (click)="openDialogCreate(null)" data-step="4" data-intro="Ici pour ajouter un nouvel utilisateur à une entreprise.">
+              <mat-icon class="icn">create</mat-icon>
+              <p class="paramP">Ajouter un utilisateur</p>
+            </button>
+
+
+          <div class="">
+            <button class="btn orange" (click)="openImportDialog()" data-step="5" data-intro="Utilisez ce bouton pour importer des données pertinentes pour votre entreprise à partir d'un fichier externe.<br>* Vos données dans voter fichier Excel doivent respecter un certain format">
+              <mat-icon class="icn"> import_export</mat-icon>
+              <p class="paramP">Importer des données</p>
+            </button>
+
+          </div>
+          </div>
+
+          <div class="flex-row">
+            <button class="btn pink" (click)="openUniteForFormDialog()" data-step="6" data-intro=" Et enfin cliquez ici  pour créer et enregistrer une nouvelle unité pour votre entreprise. Ces unités sont nécessaires a la création de données dans vos différentes bibliothèques">
+              <mat-icon class="icn">playlist_add</mat-icon>
+              <p class="paramP">Créer une unité</p>
+            </button>
+
+          </div>
+
+        </div>
+
+
+      </div>
+    </mat-tab>
+
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">business</mat-icon>
+        Gestion des entreprises
+      </ng-template>
+      <h3 class="bold" >Gestion des entreprises </h3>
+      <div class="global-container">
+          <mat-icon  (click)="toggleInfo()" class=" iconInfo">info</mat-icon>
+
+        <p *ngIf="showInfo" class="pInfo">
+          Bienvenue à la page de gestion des entreprises. Ici, vous pouvez consulter et gérer l'ensemble de vos entreprises enregistrées. En sélectionnant une entreprise spécifique, vous pourrez accéder aux détails de celle-ci, comme la gestion des devis, des utilisateurs et des clients associés. Explorez et profitez des fonctionnalités !
+        </p>
+
+        <table mat-table
+               [dataSource]="dataSourceEntreprise"   >
+
+          <ng-container matColumnDef="nEntreprise">
+            <th mat-header-cell *matHeaderCellDef>N°</th>
+            <td routerLink="/admin/entreprise/{{entreprise.id}}" mat-cell
+                *matCellDef="let entreprise">{{entreprise.id}}</td>
+          </ng-container>
+          <ng-container matColumnDef="commercialName">
+            <th mat-header-cell *matHeaderCellDef>Nom commercial</th>
+            <td routerLink="/admin/entreprise/{{entreprise.id}}" mat-cell
+                *matCellDef="let entreprise">{{entreprise.commercialName}}</td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="denomination">
+            <th mat-header-cell *matHeaderCellDef>Dénomination</th>
+            <td routerLink="/admin/entreprise/{{entreprise.id}}" mat-cell
+                *matCellDef="let entreprise">{{entreprise.denomination}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="siret">
+            <th mat-header-cell *matHeaderCellDef> Siret</th>
+            <td routerLink="/admin/entreprise/{{entreprise.id}}" mat-cell
+                *matCellDef="let entreprise">{{entreprise.siret}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="phoneNumber">
+            <th mat-header-cell *matHeaderCellDef> Téléphone</th>
+            <td routerLink="/admin/entreprise/{{entreprise.id}}" mat-cell
+                *matCellDef="let entreprise">{{entreprise.phoneNumber}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action</th>
+            <td  mat-cell
+                *matCellDef="let entreprise">
+              <button  mat-flat-button color="warn" (click)="delete(entreprise.id)" style="margin-right: 5px">  Supprimer</button>
+              <button  mat-flat-button color="primary" (click)="updateCompany(entreprise.id)">  Modifier</button>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsEntreprise"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsEntreprise;">
+          </tr>
+
+        </table>
+      </div>
+    </mat-tab>
+
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">sticky_note_2</mat-icon>
+        Gestion des tickets
+      </ng-template>
+      <h3 class="bold">Liste des tickets inter-entreprises</h3>
+
+<div  class="flex-row">
+  <mat-icon  (click)="startIntro()" class=" iconInfo">info</mat-icon>
+  <p *ngIf="showInfo" class="pInfo">
+    Bienvenue dans la section de <strong >Gestion de tickets</strong>. Cette interface présente vos tickets inter-entreprises sous forme de cartes colorées.<br>
+
+    <strong style="color: red">Cartes Rouges</strong> : Représentent les erreurs rencontrées. Chaque carte affiche le titre, la date de création et un insigne indiquant la présence de logs d'erreurs.<br>
+
+    <strong style="color: #00a9f4">Cartes Bleues</strong> : Signalent les suggestions ou demandes des utilisateurs pour améliorer le site. Elles portent le titre du ticket, le type de demande et la date de création.<br>
+
+    Sur chaque carte, vous pouvez marquer un ticket comme résolu ou le supprimer si nécessaire. Utilisez ces fonctionnalités pour gérer efficacement vos tickets.
+  </p>
+  <div *ngFor="let note of this.notes;" class="card-ticket">
+    <mat-card [ngClass]="{'error-note': note.typeError === 'J\'ai rencontré une erreur !', 'suggestion-note': note.typeError === 'J\'ai une demande / suggestion !'}">
+      <mat-card-header>
+        <mat-card-title>{{note.title|uppercase}}</mat-card-title>
+        <mat-card-subtitle>{{note.typeError}} {{note?.optionsTypeError}}</mat-card-subtitle>
+        <mat-card-subtitle>Le: {{note.createdAt | date:'dd/MM/yyyy HH:mm:ss'}}</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="note.errorLogs && note.errorLogs.length > 0" matBadge="!" matBadgePosition="before"
+                           matBadgeColor="accent" matBadgeOverlap="false">Log
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Sujet:<br>  {{note.text|uppercase}}</p>
+        <div *ngFor="let log of note.errorLogs;">
+          <p>{{log.message}}</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="flex-row"  style="justify-content: space-around">
+          <mat-checkbox [(ngModel)]="note.resolution" *ngIf=" note.typeError === 'J\'ai rencontré une erreur !'" (change)="onNoteResolutionChanged(note)" style="font-size: 16px">Résolu !</mat-checkbox>
+          <button mat-flat-button color="warn" (click)="deleteItem(note.id)">Supprimer</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</div>
+
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">error</mat-icon>
+        Gestion des erreurs
+      </ng-template>
+      <h3 class="bold">Gestion des erreurs inter-entreprises</h3>
+      <div class="container">
+        <mat-icon  (click)="toggleInfo()" class=" iconInfo">info</mat-icon>
+
+        <p *ngIf="showInfo" class="pInfo">
+          Vous vous trouvez actuellement sur l'onglet de <strong>Gestion des erreurs</strong>. Cet espace vous permet de consulter et de gérer les erreurs survenues.
+
+
+          Utilisez ces fonctionnalités pour assurer un suivi efficace des erreurs .
+        </p>
+
+        <mat-form-field>
+          <mat-label>Recherche d'une erreur</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ge..." #input>
+        </mat-form-field>
+        <mat-paginator #paginator2 style="width: 100%" [pageSize]="10" [pageSizeOptions]="[5, 10, 20,100]"
+                       showFirstLastButtons
+                       aria-label="Selectionner page de logs">
+        </mat-paginator>
+
+        <table #table mat-table [dataSource]="dataSource2"
+               style="width: 100%;text-align: justify-all">
+
+          <ng-container matColumnDef="Id">
+            <th mat-header-cell *matHeaderCellDef> No.</th>
+            <td style="color: blue" mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Level">
+            <th mat-header-cell *matHeaderCellDef> Level</th>
+            <td mat-cell *matCellDef="let element"> {{element.level}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Type d'erreur">
+            <th mat-header-cell *matHeaderCellDef> Nom</th>
+            <td mat-cell [ngStyle]="{'color': methodColors[element.name]}"
+                *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Date">
+            <th mat-header-cell *matHeaderCellDef> Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy HH:mm:ss'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Statut">
+            <th mat-header-cell *matHeaderCellDef> Statut</th>
+            <td mat-cell *matCellDef="let element"> {{element.status}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="Message">
+            <th mat-header-cell *matHeaderCellDef> Message</th>
+            <td mat-cell *matCellDef="let element"> {{element.statusText}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Url">
+            <th mat-header-cell *matHeaderCellDef> Url</th>
+            <td mat-cell *matCellDef="let element">
+              <span *ngIf="element.level === '5'"><a [href]="element?.url">{{ element.url }}</a></span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Utilisateur">
+            <th mat-header-cell *matHeaderCellDef> User</th>
+            <td mat-cell
+                *matCellDef="let element">  {{element.UserId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Durée">
+            <th mat-header-cell *matHeaderCellDef> Durée</th>
+            <td mat-cell [style.color]="getDurationColor(element.duration)"
+                *matCellDef="let element">  {{element.duration}} ms
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Détails">
+            <th mat-header-cell *matHeaderCellDef> Détails</th>
+            <td mat-cell
+                *matCellDef="let element">
+              <mat-icon color="primary" *ngIf="element?.level==='6'" matTooltip="{{ element?.method }}">info</mat-icon>
+              <mat-icon color="primary" *ngIf="element?.level==='5'" matTooltip="{{ element?.message }}">info</mat-icon>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+        </table>
+
+      </div>
+    </mat-tab>
+
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">settings</mat-icon>
+        Gestion des imports
+      </ng-template>
+      <h3 class="bold">Liste des imports/exports</h3>
+
+      <div class="wrapper-bis">
+        <mat-icon  (click)="toggleInfo()" class=" iconInfo">info</mat-icon>
+
+        <p *ngIf="showInfo" class="pInfo">
+          Bienvenue dans l'onglet de <strong>Gestion des Imports</strong>. Cette section vous offre la possibilité d'importer différents types de fichiers Excel.
+
+          Pour une extraction efficace des données, vos fichiers Excel doivent respecter une structure spécifique. Cette structure est nécessaire que vous importiez des bibliothèques de composants, d'ouvrages ou de types. Cet outil permet également d'extraire les fournisseurs.
+
+         <br> Notez bien : si une entrée de votre base de données est déjà présente, elle ne sera pas ajoutée lors de l'importation.
+
+          Utilisez cet outil pour assurer uen bibliothèque en lien avec vos precedents outils.
+        </p>
+        <div class="flex-column">
+
+          <button style="margin: 5px" mat-raised-button color="primary" (click)="openImportDialog()">Importer des
+            données
+          </button>
+          <button style="margin: 5px" mat-raised-button color="accent" (click)="importType()">Extraire les
+            données
+          </button>
+          <div *ngIf="visible" class="overlay">
+            <p class="clignote-text">Chargement en cours...</p>
+            <div class="progress-bar-container">
+              <div [style.width.%]="progressValue" class="progress-bar"></div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <table mat-table [dataSource]="importedFiles" style="width: 33%">
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let file">
+              <mat-checkbox [(ngModel)]="file.checked"></mat-checkbox>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Nom du fichier</th>
+            <td mat-cell *matCellDef="let file">{{ file.title }}</td>
+          </ng-container>
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef>Date d'importation</th>
+            <td mat-cell *matCellDef="let file">{{ file.createdAt|date:"dd/MM/yyyy HH:mm" }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['select', 'title', 'createdAt']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['select', 'title', 'createdAt']"></tr>
+        </table>
+
+      </div>
+    </mat-tab>
+
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon class="example-tab-icon">account_circle</mat-icon>
+        Logs
+      </ng-template>
+      <h3 class="bold">Liste des logs inter-entreprise </h3>
+      <div class="container">
+        <mat-icon  (click)="toggleInfo()" class=" iconInfo">info</mat-icon>
+
+        <p *ngIf="showInfo" class="pInfo">
+          Vous vous trouvez actuellement sur l'onglet de <strong>Gestion des logs</strong>. Cet espace vous permet de consulter et de gérer tout les logs concernant votre application.
+
+
+          Utilisez ces fonctionnalités pour assurer un suivi efficace. .
+        </p>
+        <mat-form-field>
+          <mat-label>Recherche d'un log</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. POST..." #input>
+        </mat-form-field>
+        <mat-paginator #paginator style="width: 100%" [pageSize]="10" [pageSizeOptions]="[5, 10, 20,100]"
+                       showFirstLastButtons
+                       aria-label="Séléctionner page de logs">
+        </mat-paginator>
+
+        <table #table matSort mat-table [dataSource]="dataSource"
+               style="width: 100%;text-align: justify-all">
+
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> No.</th>
+            <td style="color: blue" mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="level">
+            <th mat-header-cell *matHeaderCellDef> Level</th>
+            <td mat-cell *matCellDef="let element"> {{element.level}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="method">
+            <th mat-header-cell *matHeaderCellDef> Method</th>
+            <td mat-cell [ngStyle]="{'color': methodColors[element.method]}"
+                *matCellDef="let element"> {{element.method}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef> Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy HH:mm:ss'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="url">
+            <th mat-header-cell *matHeaderCellDef> Url</th>
+            <td mat-cell *matCellDef="let element"><a [href]="element.url"> {{element.url}}</a></td>
+          </ng-container>
+
+          <ng-container matColumnDef="UserId">
+            <th mat-header-cell *matHeaderCellDef> Utilisateurs</th>
+            <td mat-cell *matCellDef="let element"> {{element.UserId}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status</th>
+            <td style="color: green" mat-cell *matCellDef="let element"> {{element.status}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef> Durée</th>
+            <td mat-cell [style.color]="getDurationColor(element.duration)"
+                *matCellDef="let element"> {{element.duration}}ms
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+      </div>
+    </mat-tab>
+
+
+  </mat-tab-group>
+</div>
+
+
+
+
+
+
+
+

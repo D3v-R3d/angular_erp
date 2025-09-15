@@ -1,0 +1,42 @@
+<ng-container [formGroup]="this.myFormGroup">
+
+  <div class="container">
+    <h3>{{titreForm}}</h3>
+    <p>{{textForm}}</p>
+    <div class="inputs">
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Nom commercial</mat-label>
+        <input formControlName="commercialName" matInput placeholder="Ex: GEDIMAT">
+        <mat-error *ngIf="this.myFormGroup.get('commercialName')?.hasError('required')">
+          Vous devez entrer un nom.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Remarque</mat-label>
+        <input formControlName="remarque" matInput placeholder="Ex: Augmentation en Janvier">
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" >
+        <mat-label>Entreprise</mat-label>
+        <mat-select formControlName="EntrepriseId"  >
+          <mat-option [value]=entreprise.id
+                      *ngFor="let entreprise of this.currentEntreprise">{{entreprise.denomination}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.myFormGroup.get('EntrepriseId')?.hasError('required')">
+          Vous devez choisir une entreprise.
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="buttons">
+
+      <button mat-stroked-button color="primary" (click)="closeDialog()">Retour</button>
+      <button mat-raised-button color="primary" (click)="createAndUpdate();">{{textButton}}</button>
+    </div>
+  </div>
+
+</ng-container>

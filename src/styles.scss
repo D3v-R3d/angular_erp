@@ -1,0 +1,189 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$app-primary: mat.define-palette(mat.$light-blue-palette);
+$app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$app-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$app-theme: mat.define-light-theme((
+  color: (
+    primary: $app-primary,
+    accent: $app-accent,
+    warn: $app-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($app-theme);
+
+* You can add global styles to this file, and also import other style files *
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0 0 0 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.test .mat-dialog-container {
+  padding: 0;
+}
+.testcontainer, .global-height{
+    min-height: calc(100vh - 64px);
+  background-size: cover;
+  background-color: #F0F4F8;
+
+}
+// style for list/table
+.global-big-container{
+  //height: auto;
+
+  .global-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    background-color: #FFFFFF;;
+    color: rgb(8, 31, 44);
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: Michroma;
+    border-top: 10px solid #0c5593;
+  }
+    .global-header{
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .global-search-input{
+        margin-left: 5%;
+      }
+      .global-button-add{
+        margin-right: 5%;
+      }
+    }
+  .global-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .global-table{
+      width: 90%;
+      margin-top: 30px;
+      .global-td{
+        color: #334E68;
+        padding-right: 0px;
+      }
+
+      .global-td-hover-designation{
+        max-width: 20vw;
+      }
+      .global-th{
+        color: #334E68;
+        font-size: 0.9rem;
+        padding-right: 0px;
+      }
+    }
+  }
+}
+.global-td-hover:hover {
+  background-color: #EEF9FF;
+  cursor: pointer;
+}
+//style for form
+.global-form-container{
+  display: flex;
+  flex-direction: column;
+  .global-form-title{
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  .global-form-p{
+    margin-top: 2%;
+    font-size: 1rem;
+  }
+  .global-inputs{
+    margin-bottom: 2%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .global-form-buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top:3%;
+  }
+
+}
+
+//style for help
+
+body .customTooltip *{
+  text-align: center;
+  font-size: 20px;
+  color: #0a41c9;
+  font-family: Michroma;
+
+}
+.customTooltip .introjs-bullets ul li a {
+  width: 15px;
+  background: #1e88e5;
+}
+
+.customTooltip {
+  background-color: #c6d2d7!important;
+  //color: #173b5a !important;
+}
+.introjs-tooltiptext {
+  color: #173b5a !important;
+  font-size: 18px;
+
+}
+.introjs-tooltipbuttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.customTooltip .introjs-tooltip-title{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #1e88e5;
+  font-size: 26px;
+  font-weight: 500;
+}
+.customTooltip .introjs-nextbutton {
+  margin: 5px;
+
+}
+
+.customTooltip .introjs-prevbutton {
+  margin: 5px;
+
+
+}
+
+.customTooltip .introjs-skipbutton {
+
+}
+
+.customTooltip .introjs-donebutton {
+  background-color: #33A2FF; /* Couleur de fond pour le bouton "Terminer" */
+  color: white; /* Couleur du texte pour le bouton "Terminer" */
+}

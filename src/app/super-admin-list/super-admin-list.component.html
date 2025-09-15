@@ -1,0 +1,168 @@
+<mat-tab-group mat-stretch-tabs style="padding: 10px;margin: 10px">
+
+  <mat-tab *ngIf="entreprise">
+    <ng-template mat-tab-label>
+      <button mat-flat-button >
+        <mat-icon style="color: #0c5593" [routerLink]="'/admin'">arrow_back</mat-icon>
+      </button>
+      <mat-icon class="example-tab-icon">business</mat-icon>
+      Liste des clients
+    </ng-template>
+      <h1 class="titre">      Liste des clients
+      </h1>
+    <div class="global-container">
+
+      <table mat-table
+             [dataSource]="dataSource" multiTemplateDataRows
+             class="mat-elevation-z8 global-table">
+        <ng-container matColumnDef="denomination">
+          <th class="global-th" mat-header-cell *matHeaderCellDef>Dénomination</th>
+          <td class="global-td"  (click)="openDialogCreateClient(client, true)"  mat-cell *matCellDef="let client">{{client.denomination}}{{client.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="adresse">
+          <th class="global-th" mat-header-cell *matHeaderCellDef>Adresse</th>
+          <td class="global-td"  (click)="openDialogCreateClient(client, true)" mat-cell *matCellDef="let client">{{client.Adresses[0].adresses}}</td>
+        </ng-container>
+        <ng-container matColumnDef="city">
+          <th class="global-th" mat-header-cell *matHeaderCellDef>Ville</th>
+          <td class="global-td"  (click)="openDialogCreateClient(client, true)"  mat-cell *matCellDef="let client">{{client.Adresses[0].city}}</td>
+        </ng-container>
+        <ng-container matColumnDef="identity">
+          <th class="global-th" mat-header-cell *matHeaderCellDef>Nom Prénom</th>
+          <td class="global-td"  (click)="openDialogCreateClient(client, true)"  mat-cell *matCellDef="let client">{{client.lastName}} {{client.firstName}}</td>
+        </ng-container>
+
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let client; columns: displayedColumns;"
+            class="global-td-hover">
+          <!--          [class.example-expanded-row]="expandedElement === client"-->
+          <!--          (click)="expandedElement = expandedElement === client ? null : client"-->
+          <!--          >>-->
+        </tr>
+      </table>
+
+    </div>
+
+
+  </mat-tab>
+
+  <mat-tab *ngIf="entreprise">
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">inventory</mat-icon>
+      Liste des devis
+    </ng-template>
+    <h1 class="titre">Devis de {{ entreprise.denomination }}</h1>
+<div class="global-container">
+
+  <mat-accordion>
+
+    <mat-expansion-panel *ngFor="let devis of devisAll" [expanded]="false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <p>
+          {{ devis.id | number }}
+        </p>
+        </mat-panel-title>
+        <mat-panel-title>{{ devis.name | uppercase }}</mat-panel-title>
+        <mat-panel-title>
+          <p> {{ devis.status }}</p>
+        </mat-panel-title>
+        <mat-panel-title>
+          <p> {{
+          devis.createdAt | date : "dd/MM/yyyy HH:mm:ss"
+          }}</p>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-card-content class="container">
+        <div class="card">
+          <div class="flex-column">
+            <p class="card-titre">Total des dépenses</p>
+            <p> {{devis.totalDepense}}€</p>
+          </div>
+          <div class="flex-column">
+            <p class="card-titre">Prix de vente HT</p>
+            <p> {{devis.prixVenteHT}}€</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="flex-column">
+            <p class="card-titre">Bénéfice en euro</p>
+            <p> {{devis.beneficeInEuro}}€</p>
+          </div>
+          <div class="flex-column">
+            <p class="card-titre">Aléas en euro</p>
+            <p> {{devis.aleasInEuro}}€</p>
+          </div>
+
+
+        </div>
+        <div class="card">
+          <div class="flex-column">
+            <p class="card-titre">Coefficient d'équilibre</p>
+            <p> {{devis.coeffEquilibre}}</p>
+          </div>
+          <div class="flex-column">
+            <p class="card-titre">Pourcentage des frais généraux</p>
+            <p> {{devis.percentFraisGeneraux}}%</p>
+          </div>
+          <div class="flex-column">
+            <p class="card-titre">Temps de validité</p>
+            <p> {{devis.validityTime}} mois</p>
+          </div>
+
+
+        </div>
+
+        <mat-card-actions>
+          <div class="">
+            <div class="flex-column">
+              <button style="margin: 5px" mat-flat-button color="warn" (click)="deleteItem(devis.id)">Supprimer</button>
+              <button  style="margin: 5px" mat-flat-button color="primary" routerLink="/devisDetail/{{devis.id}}">Modifier</button>
+            </div>
+          </div>
+
+
+        </mat-card-actions>
+
+
+      </mat-card-content>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>
+
+  </mat-tab>
+
+  <mat-tab *ngIf="entreprise">
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">groups</mat-icon>
+      Liste des utilisateurs
+    </ng-template>
+    <h1 class="titre">Utilisateurs {{ entreprise.denomination }}</h1>
+
+    <div class="flex-row" style="    justify-content: space-evenly;
+">
+
+    <mat-card class=" card-column avatar" *ngFor="let user of userAll">
+      <mat-card-header class="user_header" *ngIf="user">
+        <mat-card-title>{{user.title|uppercase}}</mat-card-title>
+        <mat-card-subtitle>{{user.firstName}} {{user.lastName}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="content">
+        <p>
+          E-mail: {{user.email}}
+        </p>
+        <p>
+          Rôle: {{user.role}}
+        </p>
+      </mat-card-content>
+      <mat-card-subtitle>Profil crée le : {{user.createdAt|date:"dd/mm/yy HH:MM"}}</mat-card-subtitle>
+    </mat-card>
+    </div>
+  </mat-tab>
+
+</mat-tab-group>

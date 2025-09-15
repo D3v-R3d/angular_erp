@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+.container .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.container .wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+}
+.container .btn {
+  height: 250px;
+  width: 250px;
+  font-size: 30px;
+  border-radius: 71px;
+  background: linear-gradient(315deg, #173453, #1c3e62);
+  box-shadow: -13px -13px 26px #0a1725, 13px 13px 26px #2a5d93;
+}
+
+/*# sourceMappingURL=parametres.component.css.map */

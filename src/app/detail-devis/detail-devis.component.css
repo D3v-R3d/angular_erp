@@ -1,0 +1,86 @@
+.big-container {
+  background-color: #F0F4F8;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background-color: #FFFFFF;
+  color: rgb(8, 31, 44);
+  font-family: Michroma;
+  border-top: 10px solid #0c5593;
+}
+
+.title2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background-color: #FFFFFF;
+  color: rgb(8, 31, 44);
+  font-family: Michroma;
+  margin: 10px;
+}
+
+.example-card {
+  margin-top: 5%;
+  width: 40%;
+  height: 300px;
+}
+
+.subContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail {
+  padding: 20px;
+}
+
+.sous-detail {
+  margin-top: 30px;
+}
+
+.group3 {
+  display: flex;
+  justify-content: center;
+}
+
+.subContainer2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.detailList2 {
+  display: flex;
+}
+
+.detail2 {
+  display: flex;
+  justify-content: space-around;
+}
+
+.btnUpdate {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+}
+
+/*# sourceMappingURL=detail-devis.component.css.map */

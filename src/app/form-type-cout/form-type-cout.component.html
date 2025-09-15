@@ -1,0 +1,101 @@
+<!--<ng-container [formGroup]="this.myFormGroup">-->
+<!--  <button routerLink="/listTypeCout" mat-raised-button color="accent">Retour</button>-->
+<!--  <div class="container">-->
+<!--    <h1> {{titreForm}}</h1>-->
+<!--    <div class="group1">-->
+<!--      <p>-->
+<!--        <mat-form-field appearance="legacy">-->
+<!--          <mat-label>Type</mat-label>-->
+<!--          <input formControlName="type" matInput placeholder="Ex: Fourniture">-->
+<!--        </mat-form-field>-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        <mat-form-field appearance="legacy">-->
+<!--          <mat-label>Catégorie</mat-label>-->
+<!--          <input formControlName="categorie" matInput placeholder="Ex: Transport">-->
+<!--        </mat-form-field>-->
+<!--      </p>-->
+<!--    </div>-->
+
+
+<!--    <button   mat-raised-button (click)="createAndUpdate()" >{{textButton}}</button>-->
+<!--  </div>-->
+<!--</ng-container>-->
+
+<!--<ng-container [formGroup]="this.myFormGroup">-->
+<!--  <button routerLink="/listFournisseur" mat-raised-button color="accent">Retour</button>-->
+<!--  <div class="container">-->
+<!--    <h1> {{titreForm}}</h1>-->
+<!--    <div class="group1">-->
+<!--      <p>-->
+<!--        <mat-form-field appearance="legacy">-->
+<!--          <mat-label>Nom commercial</mat-label>-->
+<!--          <input formControlName="commercialName" matInput placeholder="Ex: GEDIMAT">-->
+<!--        </mat-form-field>-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        <mat-form-field appearance="legacy">-->
+<!--          <mat-label>Remarque</mat-label>-->
+<!--          <input formControlName="remarque" matInput placeholder="Ex: Augmentation en Janvier">-->
+<!--        </mat-form-field>-->
+<!--      </p>-->
+<!--    </div>-->
+
+
+<!--    <button   mat-raised-button (click)="createAndUpdate();closeDialog()" >{{textButton}}</button>-->
+<!--  </div>-->
+<!--</ng-container>-->
+<ng-container [formGroup]="this.myFormGroup">
+
+  <div class="container">
+    <h3>{{titreForm}}</h3>
+    <p>{{textForm}}</p>
+    <div class="inputs">
+      <mat-form-field appearance="legacy" >
+        <mat-label>Entreprise</mat-label>
+        <mat-select formControlName="EntrepriseId"  >
+          <mat-option [value]=+entreprise.id
+                      *ngFor="let entreprise of this.currentEntreprise">{{entreprise.denomination}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.myFormGroup.get('EntrepriseId')?.hasError('required')">
+          Vous devez choisir une entreprise.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="legacy">
+        <mat-label>Type</mat-label>
+        <input formControlName="type" matInput [matAutocomplete]="auto" placeholder="Ex: Fourniture">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="this.myFormGroup.get('type')?.hasError('required')">
+          Vous devez entrer un type.
+        </mat-error>
+      </mat-form-field>
+
+
+
+      <mat-form-field appearance="legacy" (keydown.enter)="createAndUpdate()">
+        <mat-label>Catégorie</mat-label>
+        <input formControlName="categorie" matInput placeholder="Ex: Transport">
+        <mat-error *ngIf="this.myFormGroup.get('categorie')?.hasError('required')">
+          Vous devez entrer une catégorie.
+        </mat-error>
+      </mat-form-field>
+
+
+
+    </div>
+
+
+    <div class="buttons">
+
+      <button mat-stroked-button color="primary" (click)="closeDialog()">Retour</button>
+      <button mat-raised-button color="primary" (click)="createAndUpdate()">{{textButton}}</button>
+    </div>
+  </div>
+
+</ng-container>
+
+

@@ -1,0 +1,189 @@
+.btnBack {
+  margin-left: 30px;
+}
+.cout-in-ouvrage{
+  display: flex;
+  flex-direction: column;
+}
+.test .mat-dialog-container {
+  padding: 0 !important;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  //.accordion {
+  //  margin-top: 10px;
+  //}
+
+  .example-card {
+    margin-bottom: 8px;
+
+    .group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detailList {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+
+
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+
+  }
+}
+
+.detail {
+  align-items: center;
+}
+
+.mat-card-subtitle {
+  padding: 8px;
+  text-align: center;
+  background-color: rgb(168 160 160 / 11%);
+  width: 100px;
+}
+.subContainer{
+  margin-top: 3%;
+  margin-right: 3%;
+  margin-left: 3%;
+}
+
+.mat-form-field {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  align-content: space-around;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.sub-header {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+
+
+.table-ouvrage{
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+.cout-designation{
+  display: flex;
+  justify-content: space-around;
+}
+.cout-detail-header{
+  font-weight: 300;
+}
+.header-cout{
+  display: flex;
+  justify-content: center;
+  .title-header-cout{
+    font-size: 1.2rem;
+  }
+}
+.cout-detail{
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+.divButton{
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  //height: 4%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  margin-top: 1.5%;
+  .btnBack{
+    margin: 2%;
+  }
+  .button{
+    margin: 2%;
+  }
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #FFFFFF;
+  z-index: 1000;
+  width: 100%;
+
+}
+::ng-deep #mat-dialog-1.mat-dialog-container {
+  padding: 0;
+}
+
+

@@ -1,0 +1,99 @@
+<ng-container [formGroup]="this.myFormGroup">
+  <div class="container">
+    <h3>{{titreForm}}</h3>
+    <p>{{textForm}}</p>
+    <div class="inputs">
+
+
+<!--      <mat-form-field appearance="legacy">-->
+<!--        <mat-label>Client</mat-label>-->
+<!--        <mat-select formControlName="ClientId">-->
+<!--          <mat-option [value]=+client.id *ngFor="let client of listClient">-->
+<!--            {{ client.firstName && client.lastName ? client.firstName + ' ' + client.lastName : client.denomination }}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+
+<!--      </mat-form-field>-->
+
+      <mat-form-field class="example-full-width" appearance="legacy" *ngIf="!hideClientField">
+        <mat-label>Client</mat-label>
+        <input type="text"
+               placeholder="Rechercher un client"
+               aria-label="Number"
+               matInput
+               formControlName="ClientId"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option" >
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="this.myFormGroup.get('ClientId')?.hasError('required')">
+          Vous devez choisir un client.
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Nom du devis</mat-label>
+        <input formControlName="name" matInput placeholder="Ex: Devis toiture">
+        <mat-error *ngIf="this.myFormGroup.get('name')?.hasError('required')">
+          Vous devez choisir un nom.
+        </mat-error>
+        <!--      <div *ngIf=" f['name'].invalid && f['name'].touched  " class="invalid-feedback">-->
+        <!--        <div *ngIf="f['name'].errors?.['required']">L'intitulé du devis est requis !</div>-->
+        <!--        <div *ngIf="f['name'].errors?.['minlength']">L'intitulé du devis doit faire 3 caractéres au min !</div>-->
+        <!--      </div>-->
+      </mat-form-field>
+
+
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Entreprise</mat-label>
+        <mat-select formControlName="EntrepriseId">
+          <mat-option [value]=+entreprise.id
+                      *ngFor="let entreprise of curentUserEntreprise">{{entreprise.denomination}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.myFormGroup.get('EntrepriseId')?.hasError('required')">
+          Vous devez choisir une entreprise.
+        </mat-error>
+      </mat-form-field>
+
+
+
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Status</mat-label>
+        <input formControlName="status" matInput  [disabled]="true" >
+        <mat-error *ngIf="this.myFormGroup.get('status')?.hasError('required')">
+          Vous devez choisir un status.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" style="width: 90px">
+        <mat-label>Durée de validité</mat-label>
+        <input formControlName="validityTime" matInput   >
+
+      </mat-form-field>
+
+
+      <mat-form-field appearance="legacy" style="width: 90px">
+        <mat-label>Bénéfice en %</mat-label>
+        <input  formControlName="beneficeInPercent" matInput   >
+
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" style="width: 75px">
+        <mat-label>Aléas en %</mat-label>
+        <input formControlName="aleasInPercent" matInput   >
+
+      </mat-form-field>
+
+    </div>
+    <div class="buttons">
+
+      <button mat-stroked-button color="primary" (click)="closeDialog()">Retour</button>
+      <button mat-raised-button color="primary" (click)="createDevis()">{{textButton}}</button>
+    </div>
+  </div>
+</ng-container>

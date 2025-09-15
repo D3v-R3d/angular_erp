@@ -1,0 +1,105 @@
+<ng-container [formGroup]="this.myFormGroup">
+
+  <div class="container">
+    <h3>{{titleModal}}</h3>
+    <p>L'ajout d'un ouvrage au sein de la bibliothèque de prix permet de l'utiliser ultérieurement lors de la création
+      de devis</p>
+    <div class="inputs">
+      <mat-form-field appearance="legacy" *ngIf="isOuvrage">
+        <mat-label>Entreprise</mat-label>
+        <mat-select formControlName="EntrepriseId"  (ngModelChange)="selectUniteByEntreprise()">
+          <mat-option [value]=+entreprise.id
+                      *ngFor="let entreprise of this.currentEntreprise">{{entreprise.denomination}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.myFormGroup.get('EntrepriseId')?.hasError('required')">
+          Vous devez choisir une entreprise.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Désignation</mat-label>
+        <!--        <input formControlName="designation" matInput placeholder="Ex: Agglo de 10cm" style="width: 200px">-->
+        <textarea formControlName="designation" matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"></textarea>
+        <mat-error *ngIf="this.myFormGroup.get('designation')?.hasError('required')">
+          Vous devez entrer une designation.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="legacy" id="input-unite" style="width: 80px">
+        <mat-label>Bénéfice</mat-label>
+        <input type="number" formControlName="benefice" matInput placeholder="Ex: 10%">
+        <mat-error *ngIf="this.myFormGroup.get('benefice')?.hasError('required')">
+          Vous devez entrer un bénéfice.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="legacy" style="width: 100px">
+        <mat-label>Aléas</mat-label>
+        <input type="number" formControlName="aleas" matInput placeholder="Ex: 5%">
+        <mat-error *ngIf="this.myFormGroup.get('aleas')?.hasError('required')">
+          Vous devez entrer un aléas.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Unité</mat-label>
+        <input type="text" matInput formControlName="unite"  [matAutocomplete]="auto" (blur)="setValueURatio()">
+        <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+          <mat-option *ngFor="let unite of filteredUnites | async" [value]="unite.name">{{unite.name}}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+
+      <span>    <mat-icon style="
+    color: deepskyblue;
+    margin-left: 20px;
+;
+" (click)="openUniteForFormDialog()">+</mat-icon>
+</span>
+      <mat-form-field appearance="legacy" style="width: 100px">
+        <mat-label>Ratio</mat-label>
+        <input type="number" formControlName="ratio" matInput placeholder="Ex: 0.7">
+        <mat-error *ngIf="this.myFormGroup.get('ratio')?.hasError('required')">
+          Vous devez entrer un ratio.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>U/Ratio</mat-label>
+        <input type="text" formControlName="uRatio" matInput placeholder="Ex: m3/h  ">
+        <!--               value=" {{ myFormGroup.controls['unite'].getRawValue().toString()}}/h"-->
+
+        <mat-error *ngIf="this.myFormGroup.get('uRatio')?.hasError('required')">
+          Vous devez entrer un U/ratio.
+        </mat-error>
+        <!--        <span matSuffix> /h</span>-->
+      </mat-form-field>
+      <mat-form-field appearance="legacy" style="width: 100px">
+        <mat-label>Prix</mat-label>
+        <input type="number" formControlName="prix" matInput placeholder="Ex: 9,2">
+      </mat-form-field>
+
+
+
+
+
+    </div>
+    <div *ngIf="!isOuvrage">
+      <mat-checkbox class="example-margin" (change)="checked()" [(ngModel)]="isChecked">Ajouter cet ouvrage uniquement
+        dans ce devis et non dans la bibliotheque
+      </mat-checkbox>
+      <!--      <span>Ajouter cet ouvrage uniquement dans ce devis et non dans la bibliotheque</span>-->
+    </div>
+
+
+    <div class="buttons">
+
+      <button mat-stroked-button color="primary" (click)="closeDialog()">Retour</button>
+      <button mat-raised-button color="primary" (click)="createOuvrage()">Ajouter cet ouvrage</button>
+    </div>
+  </div>
+
+</ng-container>
+

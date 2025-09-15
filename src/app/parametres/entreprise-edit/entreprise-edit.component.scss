@@ -1,0 +1,57 @@
+.mat-form-field {
+  padding: 20px;
+  text-align: center;
+
+}
+
+.form-group {
+  width: 60%;
+  margin: auto;
+  margin-top: 20px;
+
+
+  &-header {
+    text-align: center;
+  }
+
+
+}
+
+.form {
+  margin: 60px;
+  color: rgb(8, 31, 44);
+
+
+}
+.image-preview{
+  width: 60px;
+  height: 60px;
+  border: solid 1px #2e6da4;
+  padding: 20px;
+  background: #80808036;
+  border-radius: 25px;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}

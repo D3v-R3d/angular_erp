@@ -1,0 +1,98 @@
+<ng-container [formGroup]="this.myFormGroup">
+
+  <div class="container">
+    <h3>{{titreForm}}</h3>
+    <p>{{textForm}}</p>
+    <div class="inputs">
+      <mat-form-field appearance="legacy">
+        <mat-label>Entreprise</mat-label>
+        <mat-select formControlName="EntrepriseId" (selectionChange)="this.getUserById();">
+          <mat-option *ngFor="let entreprise of listEntreprise" [value]="entreprise.id">
+            {{entreprise.denomination}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.myFormGroup.get('TypeCoutId')?.hasError('required')">
+          Vous devez entrer un type.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy">
+        <mat-label>Type du composant</mat-label>
+        <mat-select formControlName="type" (selectionChange)="getCategorieByType($event.value);">
+          <mat-option *ngFor="let item of typeCout |unique:'type'" [value]="item.type" (click)="getUnitesByTypeCoutId(item.type)">
+            {{item.type}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.myFormGroup.get('TypeCoutId')?.hasError('required')">
+          Vous devez entrer un type.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="legacy" *ngIf="isCout">
+        <mat-label>Catégorie du composant</mat-label>
+        <mat-select formControlName="TypeCoutId">
+          <mat-option *ngFor="let item of categories" [value]="item.id">
+            {{item.categorie}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.myFormGroup.get('CategorieCout')?.hasError('required')">
+          Vous devez entrer une categorie.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="legacy">
+        <mat-label>Unité</mat-label>
+        <mat-select formControlName="unite"   required  >
+          <mat-option *ngFor="let unite of uniteList" value="{{unite.name}}"> {{unite.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.myFormGroup.get('unite')?.hasError('required')">
+          Vous devez entrer une unité.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="legacy">
+        <mat-label>Désignation</mat-label>
+        <input formControlName="designation" matInput placeholder="Ex: Agglo de 10cm" style="width: 200px">
+        <mat-error *ngIf="this.myFormGroup.get('designation')?.hasError('required')">
+          Vous devez entrer une designation.
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="legacy" *ngIf="!this.isCout">
+        <mat-label>Unité Ratio</mat-label>
+        <input formControlName="uRatio" matInput placeholder="Ex: mètres/heures">
+
+        <mat-error *ngIf="this.myFormGroup.get('uRatio')?.hasError('required')">
+          Vous devez entrer une unité.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="legacy" style="width: 100px">
+        <mat-label>Prix Unitaire</mat-label>
+        <input type="number" formControlName="prixUnitaire" matInput placeholder="Ex: 9,2">
+        <mat-error *ngIf="this.myFormGroup.get('prixUnitaire')?.hasError('required')">
+          Vous devez entrer un prix unitaire.
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="legacy" style="width: 130px" *ngIf="isCout">
+        <mat-label>Fournisseur</mat-label>
+        <mat-select formControlName="FournisseurId">
+          <mat-option *ngFor="let item of fournisseur" [value]="item.id">
+            {{item.commercialName}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.myFormGroup.get('FournisseurId')?.hasError('required')">
+          Vous devez choisir un fournisseur.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="buttons">
+
+      <button mat-stroked-button color="primary" (click)="closeDialog()">Retour</button>
+      <button mat-raised-button color="primary" (click)="createAndUpdate()">{{textButton}}</button>
+    </div>
+  </div>
+
+</ng-container>
+
